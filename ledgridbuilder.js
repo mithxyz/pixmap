@@ -100,7 +100,7 @@
   						ty = ty + tileH;
   						tx = 0;
 			}
-// Line Overlays
+// Line - Overlays
 				context.lineWidth = "2";
 				context.strokeStyle = lineCol;
 
