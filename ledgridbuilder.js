@@ -1,4 +1,4 @@
-			// let canvas = document.querySelector('canvas');
+			//LED PIXEL GRID by www.MITH.xyz
 			let canvas = document.getElementById("led");
 			let context = canvas.getContext('2d');
 			
@@ -11,6 +11,7 @@
 				Name: 'LED WALL',
 				FirstTile: 1,
 				TextColour: '#FFFFFF',
+				TextScale: 1,
 				Colour1: '#FF0000',
 				Colour2: '#0000FF',
 				LineColour: '#FFFFFF',
@@ -25,12 +26,13 @@
 // TweakPane
 const pane = new Tweakpane.Pane({title: 'Settings',});
  			
-				pane.addInput(params, 'Width');
-				pane.addInput(params, 'Height');
-				pane.addInput(params, 'TileWidth');
-				pane.addInput(params, 'TileHeight');
+				pane.addInput(params, 'Width', {format: (v) => v.toFixed(0)});
+				pane.addInput(params, 'Height', {format: (v) => v.toFixed(0)});
+				pane.addInput(params, 'TileWidth', {format: (v) => v.toFixed(0)});
+				pane.addInput(params, 'TileHeight', {format: (v) => v.toFixed(0)});
 				pane.addInput(params, 'Name');
-				pane.addInput(params, 'FirstTile');
+				pane.addInput(params, 'TextScale', {min: 0.1, max: 4,});
+				pane.addInput(params, 'FirstTile', {format: (v) => v.toFixed(0)});
 				pane.addInput(params, 'Colour1');
 				pane.addInput(params, 'Colour2');
 				pane.addInput(params, 'TextColour');
@@ -97,7 +99,7 @@ function buildGrid () {
 
       		//Tile Number Font
       		var fontsize = (tileH / 10) + (tileW / 10) / 2;
-      		var mainfont = (width / 10) + (height / 10) / 2;
+      		var mainfont = params.TextScale * ((width / 10) + (height / 10) / 2);
       		context.font = `${fontsize}px Arial`;
 
       		//Grid
