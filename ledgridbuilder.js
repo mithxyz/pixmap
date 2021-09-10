@@ -1,29 +1,66 @@
 			// let canvas = document.querySelector('canvas');
 			let canvas = document.getElementById("led");
 			let context = canvas.getContext('2d');
+			
 
+			const params = {
+				Width: 1920,
+				Height: 1080,
+				TileWidth: 120,
+				TileHeight: 120,
+				Name: 'LED WALL',
+				FirstTile: 1,
+				TextColour: '#FFFFFF',
+				Colour1: '#FF0000',
+				Colour2: '#0000FF',
+				LineColour: '#FFFFFF',
+				Outline: '#00FF00',
+				Overflow: '#555555',
+
+
+
+			};
+// TweakPane
+const pane = new Tweakpane.Pane({title: 'Settings',});
+ 			
+				pane.addInput(params, 'Width');
+				pane.addInput(params, 'Height');
+				pane.addInput(params, 'TileWidth');
+				pane.addInput(params, 'TileHeight');
+				pane.addInput(params, 'Name');
+				pane.addInput(params, 'FirstTile');
+				pane.addInput(params, 'Colour1');
+				pane.addInput(params, 'Colour2');
+				pane.addInput(params, 'TextColour');
+				pane.addInput(params, 'LineColour');
+				pane.addInput(params, 'Outline');
+				pane.addInput(params, 'Overflow');
+
+				const btn = pane.addButton({title: 'Update'});
+
+
+
+
+function buildGrid () {
 			// Colour Style
-			let tileCol1 = 'red';
-			let tileCol2 = 'blue';
-			let lineCol = 'white';
-			let borderCol = 'green';
-			let overflowCol = 'grey';
-			let name = 'SLICE 01';
-
-			// Functions
-			function isEven(n) {
-				return n % 2 == 0;
-			}
-
-			function isOdd(n) {
-				return Math.abs(n % 2) == 1;
-			}
+			// let tileCol1 = prompt('Odd Colour');
+			// let tileCol2 = prompt('Even Colour');
+			// let name = prompt('Slice Name');
+			let name = params.Name;
+			let tileCol1 = params.Colour1;
+			let tileCol2 = params.Colour2;
+			let fontCol = params.TextColour;
+			let lineCol = params.LineColour;
+			let borderCol = params.Outline;
+			let overflowCol = params.Overflow;
 
 			// Get LED wall dims
-			let widthInput = prompt('Screen Resolution Width?');
-			let heightInput = prompt('Screen Resoloution Height?');
-			// let widthInput = 1920;
-			// let heightInput = 1080;
+			// let widthInput = prompt('Screen Resolution Width?');
+			// let heightInput = prompt('Screen Resoloution Height?');
+			let widthInput = params.Width;
+			let heightInput = params.Height;
+			// let widthInput = 1000;
+			// let heightInput = 1000;
 			let width = parseInt(widthInput);
 			let height = parseInt(heightInput);
 			let canvasdims = "width:" + widthInput + " height:" + heightInput;
@@ -37,29 +74,22 @@
     		context.fillRect(0, 0, width, height);
 
 			// LED Tile Module size
-      		let LEDw = prompt('LED tile Width in Pixels?');
-      		let LEDh = prompt('LED tile Height in Pixels?');
+      		// let LEDw = prompt('LED tile Width in Pixels?');
+      		// let LEDh = prompt('LED tile Height in Pixels?');
+      		let LEDw = params.TileWidth;
+      		let LEDh = params.TileHeight;
+      		// let LEDh = 100;
+      		// let LEDw = 100;
       		var tileW = parseInt(LEDw);
       		var tileH = parseInt(LEDh);
       		const tileXcount = Math.floor(width / tileW);
       		const tileYcount = Math.floor(height / tileH);
       		console.log(tileYcount);
 
-
-      		// Slice
-      		const sliceCount = 1; 
-      		const sliceX = 0;
-      		const sliceY = 0;
-      		const sliceWtile = 8;
-      		const sliceHtile = 12;
-      		const sliceWpix = sliceWtile * tileW;
-      		const sliceHpix = sliceHtile * tileH;
-      		let sliceIndex = 0;
-
       		// Tile
       		let tx = 0;
       		let ty = 0;
-      		let tile = 0;
+      		let tile = params.FirstTile - 1;
 
       		//Tile Number Font
       		var fontsize = (tileH / 10) + (tileW / 10) / 2;
@@ -115,9 +145,24 @@
 				context.lineWidth = "2";
 				context.strokeStyle = lineCol;
 
+				context.save();
+
+//Circle
+				
+				context.beginPath();
+				context.arc(width / 2, height / 2, (height / 4) * 1, 0, Math.PI * 2);
+				context.stroke();
 
 				context.beginPath();
-				context.arc(width / 2, height / 2, height / 3, 0, Math.PI * 2);
+				context.arc(width / 2, height / 2, (height / 4) * 2, 0, Math.PI * 2);
+				context.stroke();
+
+				context.beginPath();
+				context.arc(width / 2, height / 2, (height / 4) * 3, 0, Math.PI * 2);
+				context.stroke();
+
+				context.beginPath();
+				context.arc(width / 2, height / 2, height / 8, 0, Math.PI * 2);
 				context.stroke();
 
 				context.beginPath();
@@ -141,23 +186,36 @@
 				context.lineTo(0, 0);
 				context.stroke();
 
-				if (tileH > tileW) {
+				context.restore();
+
+				context.fillStyle = fontCol;
+
+
+				if (height > width) {
 				context.font = `${mainfont}px Arial`;
+				context.translate(width / 2, height / 2);
+				context.rotate(-90 * (Math.PI / 180));
 				context.textAlign = 'center';
-				context.rotate(90 * (Math.PI / 180));
-				context.fillText(name, width / 2, height / 2);
+				context.fillText(name, 0, mainfont / 2.5);
 } else {
 				context.font = `${mainfont}px Arial`;
+				context.translate(width / 2, height / 2);
 				context.textAlign = 'center';
-				context.fillText(name, width / 2, height / 2);
+				context.fillText(name, 0, mainfont / 2.5);
 }
 
-				
 
+}
+
+buildGrid();
+
+pane.on('change', (ev) => { buildGrid()});
+
+// btn.on('click', () => { buildGrid()});
 
 // Print Slice Dims
-console.log('Tiles Horz '+ tileXcount);
-console.log('Tiles Vert '+ tileYcount);
+// console.log('Tiles Horz '+ tileXcount);
+// console.log('Tiles Vert '+ tileYcount);
 
 
 
