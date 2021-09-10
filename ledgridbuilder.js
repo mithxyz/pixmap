@@ -14,7 +14,9 @@
 				Colour1: '#FF0000',
 				Colour2: '#0000FF',
 				LineColour: '#FFFFFF',
+				LineWidth: 2,
 				Outline: '#00FF00',
+				OutlineWidth: 5,
 				Overflow: '#555555',
 
 
@@ -33,10 +35,12 @@ const pane = new Tweakpane.Pane({title: 'Settings',});
 				pane.addInput(params, 'Colour2');
 				pane.addInput(params, 'TextColour');
 				pane.addInput(params, 'LineColour');
+				pane.addInput(params, 'LineWidth', {min: 0, max: 30,});
 				pane.addInput(params, 'Outline');
+				pane.addInput(params, 'OutlineWidth', {min: 0, max: 30,});
 				pane.addInput(params, 'Overflow');
 
-				const btn = pane.addButton({title: 'Update'});
+				// const btn = pane.addButton({title: 'Update'});
 
 
 
@@ -142,7 +146,7 @@ function buildGrid () {
   						tx = 0;
 			}
 // Line - Overlays
-				context.lineWidth = "2";
+				context.lineWidth = params.LineWidth;
 				context.strokeStyle = lineCol;
 
 				context.save();
@@ -175,7 +179,7 @@ function buildGrid () {
 				context.lineTo(0, height);
 				context.stroke();
 
-				context.lineWidth = "5";
+				context.lineWidth = params.OutlineWidth;
 				context.strokeStyle = borderCol;
 
 				context.beginPath();
