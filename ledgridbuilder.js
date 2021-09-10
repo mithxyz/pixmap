@@ -8,10 +8,22 @@
 			let lineCol = 'white';
 			let borderCol = 'green';
 			let overflowCol = 'grey';
+			let name = 'SLICE 01';
+
+			// Functions
+			function isEven(n) {
+				return n % 2 == 0;
+			}
+
+			function isOdd(n) {
+				return Math.abs(n % 2) == 1;
+			}
 
 			// Get LED wall dims
 			let widthInput = prompt('Screen Resolution Width?');
 			let heightInput = prompt('Screen Resoloution Height?');
+			// let widthInput = 1920;
+			// let heightInput = 1080;
 			let width = parseInt(widthInput);
 			let height = parseInt(heightInput);
 			let canvasdims = "width:" + widthInput + " height:" + heightInput;
@@ -29,8 +41,6 @@
       		let LEDh = prompt('LED tile Height in Pixels?');
       		var tileW = parseInt(LEDw);
       		var tileH = parseInt(LEDh);
-      		// const tileW = 192;
-      		// const tileH = 192;
       		const tileXcount = Math.floor(width / tileW);
       		const tileYcount = Math.floor(height / tileH);
       		console.log(tileYcount);
@@ -53,6 +63,7 @@
 
       		//Tile Number Font
       		var fontsize = (tileH / 10) + (tileW / 10) / 2;
+      		var mainfont = (width / 10) + (height / 10) / 2;
       		context.font = `${fontsize}px Arial`;
 
       		//Grid
@@ -129,6 +140,18 @@
 				context.lineTo(0, height);
 				context.lineTo(0, 0);
 				context.stroke();
+
+				if (tileH > tileW) {
+				context.font = `${mainfont}px Arial`;
+				context.textAlign = 'center';
+				context.rotate(90 * (Math.PI / 180));
+				context.fillText(name, width / 2, height / 2);
+} else {
+				context.font = `${mainfont}px Arial`;
+				context.textAlign = 'center';
+				context.fillText(name, width / 2, height / 2);
+}
+
 				
 
 
