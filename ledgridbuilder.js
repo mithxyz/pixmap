@@ -10,13 +10,13 @@
 				TileHeight: 120,
 				Name: 'LED WALL',
 				FirstTile: 1,
-				TextColour: '#FFFFFF',
+				TextColour: '#e2e2e2',
 				TextScale: 1,
-				Colour1: '#FF0000',
-				Colour2: '#0000FF',
-				LineColour: '#FFFFFF',
+				Colour1: '#FF9000',
+				Colour2: '#8900FF',
+				LineColour: '#00ff59',
 				LineWidth: 2,
-				Outline: '#00FF00',
+				Outline: '#ff2900',
 				OutlineWidth: 5,
 				Overflow: '#555555',
 
@@ -41,7 +41,6 @@ const pane = new Tweakpane.Pane({title: 'Settings',});
 				pane.addInput(params, 'Outline');
 				pane.addInput(params, 'OutlineWidth', {min: 0, max: 30,});
 				pane.addInput(params, 'Overflow');
-
 				// const btn = pane.addButton({title: 'Update'});
 
 
